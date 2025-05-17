@@ -19,6 +19,7 @@ public class LoLDiscordBot {
         builder.setStatus(OnlineStatus.ONLINE);
         builder.setActivity(Activity.streaming("Fraudulent fiddle", "https://twitch.tv/playcabex"));
         shardManager = builder.build();
+        System.out.println("test");
     }
 
     public ShardManager getShardManager() {
