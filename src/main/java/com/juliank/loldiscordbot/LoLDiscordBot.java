@@ -1,5 +1,6 @@
 package com.juliank.loldiscordbot;
 
+import com.juliank.loldiscordbot.listeners.EventListener;
 import io.github.cdimascio.dotenv.Dotenv;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
@@ -19,7 +20,8 @@ public class LoLDiscordBot {
         builder.setStatus(OnlineStatus.ONLINE);
         builder.setActivity(Activity.streaming("Fraudulent fiddle", "https://twitch.tv/playcabex"));
         shardManager = builder.build();
-        System.out.println("test");
+
+        shardManager.addEventListener(new EventListener());
     }
 
     public ShardManager getShardManager() {
