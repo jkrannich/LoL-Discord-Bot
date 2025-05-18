@@ -1,5 +1,6 @@
 package com.juliank.loldiscordbot;
 
+import com.juliank.loldiscordbot.commands.CommandManager;
 import com.juliank.loldiscordbot.listeners.EventListener;
 import io.github.cdimascio.dotenv.Dotenv;
 import net.dv8tion.jda.api.OnlineStatus;
@@ -29,7 +30,8 @@ public class LoLDiscordBot {
         builder.enableCache(CacheFlag.ONLINE_STATUS);
         shardManager = builder.build();
 
-        shardManager.addEventListener(new EventListener());
+        shardManager.addEventListener(new EventListener(), new CommandManager());
+
     }
 
     public ShardManager getShardManager() {
