@@ -23,7 +23,7 @@ public class LoLDiscordBot {
 
         DefaultShardManagerBuilder builder = DefaultShardManagerBuilder.createDefault(token);
         builder.setStatus(OnlineStatus.ONLINE);
-        builder.setActivity(Activity.streaming("Fraudulent fiddle", "https://twitch.tv/playcabex"));
+        builder.setActivity(Activity.streaming("Example stream", "https://twitch.tv/playcabex"));
         builder.enableIntents(GatewayIntent.MESSAGE_CONTENT, GatewayIntent.GUILD_MEMBERS, GatewayIntent.GUILD_PRESENCES);
         builder.setMemberCachePolicy(MemberCachePolicy.ALL);
         builder.setChunkingFilter(ChunkingFilter.ALL);
