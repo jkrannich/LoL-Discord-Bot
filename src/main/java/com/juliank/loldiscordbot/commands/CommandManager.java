@@ -25,58 +25,6 @@ public class CommandManager extends ListenerAdapter {
     @Override
     public void onSlashCommandInteraction(SlashCommandInteractionEvent event) {
         String command = event.getName();
-
-        if (command.equals("welcome")) {
-            String userTag = event.getUser().getAsTag();
-            event.reply("Welcome to the server, **" + userTag + "**!").setEphemeral(true).queue();
-        } else if (command.equals("roles")) {
-            event.deferReply().setEphemeral(true).queue();
-            String response = "";
-            for (Role role: event.getGuild().getRoles()){
-                response += role.getAsMention() + "\n";
-            }
-            event.getHook().sendMessage(response).queue();
-        } else if (command.equals("say")) {
-            OptionMapping messageOption = event.getOption("message");
-            if (messageOption != null) {
-                String message = messageOption.getAsString();
-
-                MessageChannel channel;
-                OptionMapping channelOption = event.getOption("targetchannel");
-                if (channelOption != null) {
-                    channel = channelOption.getAsChannel().asGuildMessageChannel();
-                } else {
-                    channel = event.getChannel();
-                }
-
-                channel.sendMessage(message).queue();
-                event.reply("Your message was sent").setEphemeral(true).queue();
-            }
-        } else if (command.equals("emote")) {
-            OptionMapping option = event.getOption("type");
-            String type = option.getAsString();
-
-            String replyMessage = "";
-
-            switch (type.toLowerCase()) {
-                case "hug" -> {
-                    replyMessage = "You hug the closest person to you!";
-                }
-                case "laugh" -> {
-                    replyMessage = "You laugh hysterically!";
-                }
-                case "cry" -> {
-                    replyMessage = "You cant stop crying";
-                }
-            }
-            event.reply(replyMessage).setEphemeral(true).queue();
-        } else if (command.equals("giverole")) {
-            Member member = event.getOption("user").getAsMember();
-            Role role = event.getOption("role").getAsRole();
-
-            event.getGuild().addRoleToMember(member, role).queue();
-            event.reply(member.getAsMention() + " has been given the " + role.getAsMention() + " role!").queue();
-        }
     }
 
     @Override
