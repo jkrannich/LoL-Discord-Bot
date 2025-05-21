@@ -1,5 +1,10 @@
 package com.juliank.loldiscordbot.commands;
 
+import com.juliank.loldiscordbot.commands.command.EmoteCommand;
+import com.juliank.loldiscordbot.commands.command.GiveRoleCommand;
+import com.juliank.loldiscordbot.commands.command.RolesCommand;
+import com.juliank.loldiscordbot.commands.command.SayCommand;
+import com.juliank.loldiscordbot.commands.command.WelcomeCommand;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.channel.ChannelType;
@@ -22,9 +27,12 @@ public class CommandManager extends ListenerAdapter {
 
     private final Map<String, BotCommand> commands = new HashMap<>();
 
-    @Override
-    public void onSlashCommandInteraction(SlashCommandInteractionEvent event) {
-        String command = event.getName();
+    public CommandManager() {
+        commands.put("welcome", new WelcomeCommand());
+        commands.put("giverole", new GiveRoleCommand());
+        commands.put("emote", new EmoteCommand());
+        commands.put("roles", new RolesCommand());
+        commands.put("say", new SayCommand());
     }
 
     @Override
@@ -46,5 +54,15 @@ public class CommandManager extends ListenerAdapter {
         OptionData option5 = new OptionData(OptionType.ROLE, "role", "The role to be assigned", true);
         commandData.add(Commands.slash("giverole", "Give a user a role").addOptions(option4, option5));
         event.getGuild().updateCommands().addCommands(commandData).queue();
+    }
+
+    @Override
+    public void onSlashCommandInteraction(SlashCommandInteractionEvent event) {
+        BotCommand cmd = commands.get(event.getName());
+        if (cmd != null) {
+            cmd.execute(event);
+        } else {
+            System.out.println("Unknown command: " + event.getName());
+        }
     }
 }
