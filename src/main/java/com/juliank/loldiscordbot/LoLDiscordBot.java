@@ -2,6 +2,8 @@ package com.juliank.loldiscordbot;
 
 import com.juliank.loldiscordbot.commands.CommandManager;
 import com.juliank.loldiscordbot.listeners.EventListener;
+import com.juliank.loldiscordbot.lolapi.RiotApiService;
+import com.juliank.loldiscordbot.lolapi.accountv1.AccountV1Api;
 import io.github.cdimascio.dotenv.Dotenv;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
@@ -21,6 +23,10 @@ public class LoLDiscordBot {
         config = Dotenv.configure().load();
         String token = config.get("TOKEN");
 
+        AccountV1Api accountV1Api = new AccountV1Api(config);
+        RiotApiService riotApiService = new RiotApiService(config);
+        CommandManager commandManager = new CommandManager(riotApiService);
+
         DefaultShardManagerBuilder builder = DefaultShardManagerBuilder.createDefault(token);
         builder.setStatus(OnlineStatus.ONLINE);
         builder.setActivity(Activity.streaming("Example stream", "https://twitch.tv/playcabex"));
@@ -30,7 +36,7 @@ public class LoLDiscordBot {
         builder.enableCache(CacheFlag.ONLINE_STATUS);
         shardManager = builder.build();
 
-        shardManager.addEventListener(new EventListener(), new CommandManager());
+        shardManager.addEventListener(new EventListener(), new CommandManager(riotApiService));
 
     }
 
