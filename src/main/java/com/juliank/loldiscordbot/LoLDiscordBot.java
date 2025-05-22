@@ -3,7 +3,7 @@ package com.juliank.loldiscordbot;
 import com.juliank.loldiscordbot.commands.CommandManager;
 import com.juliank.loldiscordbot.listeners.EventListener;
 import com.juliank.loldiscordbot.lolapi.RiotApiService;
-import com.juliank.loldiscordbot.lolapi.accountv1.AccountV1Api;
+import com.juliank.loldiscordbot.lolapi.accountv1.AccountV1Endpoint;
 import io.github.cdimascio.dotenv.Dotenv;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
@@ -23,7 +23,7 @@ public class LoLDiscordBot {
         config = Dotenv.configure().load();
         String token = config.get("TOKEN");
 
-        AccountV1Api accountV1Api = new AccountV1Api(config);
+        AccountV1Endpoint accountV1Endpoint = new AccountV1Endpoint(config);
         RiotApiService riotApiService = new RiotApiService(config);
         CommandManager commandManager = new CommandManager(riotApiService);
 
