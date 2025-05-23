@@ -7,7 +7,7 @@ public enum LolApiExampleEndpoints {
     ACCOUNT_BY_RIOT_ID("https://{routingValue}.api.riotgames.com/riot/account/v1/accounts/by-riot-id/{name}/{tag}"),
     SUMMONER_BY_NAME("https://{routingValue}.api.riotgames.com/lol/summoner/v4/summoners/by-name/{name}"),
     ACTIVE_GAME_BY_SUMMONER("https://{routingValue}.api.riotgames.com/lol/spectator/v4/active-games/by-summoner/{summoner}"),
-    GET_CURRENT_GAME_INFO("https://{region}.api.riotgames.com/lol/spectator/v5/active-games/by-summoner/{puuid}");
+    GET_CURRENT_GAME_INFO("https://euw1.api.riotgames.com/lol/spectator/v5/active-games/by-summoner/{puuid}");
 
     private final String template;
 

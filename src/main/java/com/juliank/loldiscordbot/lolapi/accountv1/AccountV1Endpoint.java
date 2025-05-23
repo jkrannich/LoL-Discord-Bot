@@ -1,6 +1,7 @@
 package com.juliank.loldiscordbot.lolapi.accountv1;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.juliank.loldiscordbot.config.ObjectMapperConfig;
 import com.juliank.loldiscordbot.lolapi.dtos.AccountDto;
 import com.juliank.loldiscordbot.lolapi.enums.LolApiExampleEndpoints;
 import io.github.cdimascio.dotenv.Dotenv;
@@ -25,7 +26,7 @@ public class AccountV1Endpoint {
         this.httpClient = HttpClient.newBuilder()
                 .connectTimeout(Duration.ofSeconds(10))
                 .build();
-        this.objectMapper = new ObjectMapper();
+        this.objectMapper = ObjectMapperConfig.getInstance();
     }
 
     public AccountDto getSummonerByRiotId(String region, String tag, String name) throws IOException, InterruptedException {

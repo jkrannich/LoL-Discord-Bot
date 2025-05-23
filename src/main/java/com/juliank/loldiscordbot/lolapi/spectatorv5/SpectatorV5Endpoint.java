@@ -1,7 +1,7 @@
 package com.juliank.loldiscordbot.lolapi.spectatorv5;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.juliank.loldiscordbot.lolapi.dtos.AccountDto;
+import com.juliank.loldiscordbot.config.ObjectMapperConfig;
 import com.juliank.loldiscordbot.lolapi.dtos.CurrentGameInfoDto;
 import com.juliank.loldiscordbot.lolapi.enums.LolApiExampleEndpoints;
 import io.github.cdimascio.dotenv.Dotenv;
@@ -25,7 +25,7 @@ public class SpectatorV5Endpoint {
         this.httpClient = HttpClient.newBuilder()
                 .connectTimeout(Duration.ofSeconds(10))
                 .build();
-        this.objectMapper = new ObjectMapper();
+        this.objectMapper = ObjectMapperConfig.getInstance();
         this.apiKey = config.get("RIOTAPIKEY");
     }
 
@@ -41,6 +41,8 @@ public class SpectatorV5Endpoint {
                 .header("X-Riot-Token", apiKey)
                 .GET()
                 .build();
+
+        System.out.println("Request sending: " + url);
 
         HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
 

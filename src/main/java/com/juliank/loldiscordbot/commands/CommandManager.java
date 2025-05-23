@@ -1,6 +1,7 @@
 package com.juliank.loldiscordbot.commands;
 
 import com.juliank.loldiscordbot.commands.command.EmoteCommand;
+import com.juliank.loldiscordbot.commands.command.GameInfoCommand;
 import com.juliank.loldiscordbot.commands.command.GiveRoleCommand;
 import com.juliank.loldiscordbot.commands.command.LookUpSummonerCommand;
 import com.juliank.loldiscordbot.commands.command.RolesCommand;
@@ -37,6 +38,7 @@ public class CommandManager extends ListenerAdapter {
         commands.put("roles", new RolesCommand());
         commands.put("say", new SayCommand());
         commands.put("lookupsummoner", new LookUpSummonerCommand(riotApiService));
+        commands.put("gameinfo", new GameInfoCommand(riotApiService));
     }
 
     @Override
@@ -63,6 +65,12 @@ public class CommandManager extends ListenerAdapter {
         OptionData option7 = new OptionData(OptionType.STRING, "name", "Summoner name", true);
         OptionData option8 = new OptionData(OptionType.STRING, "tag", "Summoner tag", true);
         commandData.add(Commands.slash("lookupsummoner", "Look up summoner").addOptions(option6, option7, option8));
+
+        OptionData option9 = new OptionData(OptionType.STRING, "region", "Enter region of summoner", true)
+                .addChoice("EUW/EUNE", "europe").addChoice("NA/LAN/LAS/BR", "americas").addChoice("KR/JP/VN", "asia");
+        OptionData option10 = new OptionData(OptionType.STRING, "name", "Summoner name", true);
+        OptionData option11 = new OptionData(OptionType.STRING, "tag", "Summoner tag", true);
+        commandData.add(Commands.slash("gameinfo", "Look up live game info").addOptions(option9, option10, option11));
 
         event.getGuild().updateCommands().addCommands(commandData).queue();
     }
